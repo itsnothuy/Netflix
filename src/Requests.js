@@ -10,6 +10,8 @@ const requests = {
     fetchHorrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
     fetchRomanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
     fetchDocumentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
-}
+};
+
 
 export default requests;
+// https://api.themoviedb.org/3/trending/all/week?api_key=e0c11b4dd9a731ef4725910a3b06d884&language=it-IT
