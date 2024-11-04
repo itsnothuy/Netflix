@@ -48,6 +48,8 @@
     z-index: 1;
     color: #FFF;
     padding: 20px;
+    left: 0;
+    right: 0;
 }
 
 
@@ -80,6 +82,8 @@
     width: 30%;
     border: none;
     max-width: 600px;
+    border-radius: 0.3em;
+    border: 0 solid transparent;
 }
 
 .loginScreen__getStarted {
@@ -90,5 +94,4 @@
     background-color: #E50914;
     font-weight: 600;
     cursor: pointer;
-
 }

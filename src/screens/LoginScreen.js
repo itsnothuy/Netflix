@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import './LoginScreen.css'
+import SignupScreen from './SignupScreen';
 
 const LoginScreen = () => {
     const [singIn, setSignIn] = useState(false);
@@ -25,7 +26,7 @@ const LoginScreen = () => {
 
             <div className='loginScreen__body'>
                 {singIn ? ( 
-                    <SignUpScreen />
+                    <SignupScreen />
                 ): (
                     <>
                         <h1>Unlimited movies, TV shows and more.</h1>
