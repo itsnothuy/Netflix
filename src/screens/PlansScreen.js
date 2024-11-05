@@ -169,7 +169,7 @@ const PlansScreen = () => {
                 }
     
                 if (sessionId) {
-                    const stripe = await loadStripe('pk_test_...');
+                    const stripe = await loadStripe('pk_test_51QHfZ1HGdTnc8pJOPiI34gHHQ4i7JkeDn5uvH7Aj0Aq5mwaLN8qujFHpej9yAkblYmkltk3wPo89nWUpqiNGz57X00JTEAz4yR');
                     stripe.redirectToCheckout({ sessionId });
                 }
             });
