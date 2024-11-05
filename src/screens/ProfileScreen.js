@@ -4,6 +4,7 @@ import { selectUser } from '../features/userSlice'
 import { auth } from '../firebase'
 import Nav from '../Nav'
 import './ProfileScreen.css'
+import PlansScreen from './PlansScreen'
 
 const ProfileScreen = () => {
     const user = useSelector(selectUser);
@@ -26,6 +27,8 @@ const ProfileScreen = () => {
                             <h3>
                                 Plans
                             </h3>
+
+                            <PlansScreen />
                             <button
                                 onClick={() => auth.signOut()}
                                 className='profileScreen__signOut'
