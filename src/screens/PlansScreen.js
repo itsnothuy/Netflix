@@ -113,6 +113,29 @@ import { loadStripe } from '@stripe/stripe-js';
 const PlansScreen = () => {
     const [products, setProducts] = useState([]);
     const user = useSelector(selectUser);
+    const [subscription, setSubscription] = useState(null);
+
+    useEffect(() => {
+        const fetchSubscription = async () => {
+            const subscriptionSnapshot = await getDocs(
+                collection(db, "customers", user.uid, "subscriptions")
+            );
+
+            subscriptionSnapshot.forEach(sub => {
+                setSubscription({
+                    role: sub.data().role,
+                    current_period_end: sub.data().current_period_end.seconds,
+                    current_period_start: sub.data().current_period_start.seconds,
+                });
+            });
+        };
+
+        if (user?.uid) {
+            fetchSubscription().catch((error) =>
+                console.error("Error fetching subscription:", error)
+            );
+        }
+    }, [user.uid]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -180,8 +203,13 @@ const PlansScreen = () => {
 
     return (
         <div className='plansScreen'>
-            {Object.entries(products).map(([productId, productData]) => (
-                <div key={productId} className='plansScreen__plan'>
+            {subscription && <p>Renewal date: {new Date(subscription?.current_period_end * 1000).toLocaleDateString()}</p>}
+            {Object.entries(products).map(([productId, productData]) => {
+                const isCurrentPackage = productData.name?.toLowerCase().includes(subscription?.role);
+
+
+                return (
+                    <div key={productId} className={`plansScreen__plan ${isCurrentPackage ? 'plansScreen__plan--disabled' : ''}`}>
                     <div className='plansScreen__info'>
                         <h5>{productData.name}</h5>
                         <h6>{productData.description}</h6>
@@ -192,14 +220,15 @@ const PlansScreen = () => {
                                 key={price.priceId}
                                 onClick={() => loadCheckout(price.priceId)}
                             >
-                                Subscribe
+                                {isCurrentPackage ? 'Current Package': 'Subscribe'}
                             </button>
                         ))
                     ) : (
                         <p>No prices available for this plan</p>
                     )}
-                </div>
-            ))}
+                    </div>
+                );
+            })}
         </div>
     );
 };
